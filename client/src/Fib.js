@@ -3,7 +3,7 @@ import axios from 'axios'
 
 class Fib extends Component{
     state = {
-        seenIndexs: [],
+        seenIndexes: [],
         values: {},
         index: ''
     }
@@ -21,14 +21,14 @@ class Fib extends Component{
     }
 
     async fetchIndexes(){
-        const seenIndexs = await axios.get('/api/values/all')
+        const seenIndexes = await axios.get('/api/values/all')
         this.setState({
-            seenIndexs: seenIndexs.data
+            seenIndexes: seenIndexes.data
         });
     }
 
     renderSeenIndexes(){
-        return this.state.seenIndexs.map( ({number}) => number.join(', '))
+        return this.state.seenIndexes.map(({ number }) => number).join(', ');
     }
 
     renderValues(){

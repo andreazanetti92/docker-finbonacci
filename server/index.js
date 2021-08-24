@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors')
 
 const app = express()
-app.use(cors);
+app.use(cors());
 app.use(express.json());
 
 // Postgres setup
@@ -29,7 +29,7 @@ const redis = require('redis')
 
 const redisClient = redis.createClient({
     host: keys.redisHost,
-    port: keys.resisPort,
+    port: keys.redisPort,
     retry_strategy: () => 1000
 })
 
