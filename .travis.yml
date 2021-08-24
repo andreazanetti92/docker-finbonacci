@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t andrew2892/react-test -f ./client/Dockerfile.dev .client
+
+script:
+  - docker run -e CI=true andrew2892/react-test npm test
+
+after_success:
+  - docker build -t andrew2892/client ./client
+  - docker build -t andrew2892/nginx ./nginx
+  - docker build -t andrew2892/server ./server
+  - docker build -t andrew2892/worker ./worker
+  # Login to docker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push the image 
+  - docker push andrew2892/client
+  - docker push andrew2892/nginx
+  - docker push andrew2892/server
+  - docker push andrew2892/worker
